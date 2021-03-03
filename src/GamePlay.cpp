@@ -6,6 +6,9 @@
 #include <time.h>
 #include <cmath> 
 
+#include "GameOver.hpp"
+#include "PauseGame.hpp"
+
 
 
 GamePlay::GamePlay(std::shared_ptr<Context> &context) 
@@ -69,6 +72,8 @@ void GamePlay::processInput()
             case sf::Keyboard::Down:
                 newDirection = {0.f, 16.f};
                 break;
+            case sf::Keyboard::Escape:
+                m_context->m_states->add(std::make_unique<PauseGame>(m_context));
             default:
                 break;
             }
@@ -87,10 +92,11 @@ void GamePlay::update(sf::Time deltaTime)
 
         for(auto& wall : m_walls){
             if(m_snake.isOn(wall)){
-                // Game Over
+                m_context->m_states->add(std::make_unique<GameOver>(m_context), true);
                 break;
             }
         }
+        if(m_snake.isBitHisTail()){ m_context->m_states->add(std::make_unique<GameOver>(m_context), true); }
 
         if(m_snake.isOn(m_food)){
             m_snake.grow(m_snakeDirection);

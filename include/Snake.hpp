@@ -1,6 +1,6 @@
 #pragma once
 
-#include <list>
+#include <vector>
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -21,9 +21,15 @@ public:
     void grow(const sf::Vector2f& direction);
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+    bool isBitHisTail(){
+        for(auto& piece : body){
+            if(&piece != &body[0] && isOn(piece))
+                return true;
+        
+        }
+        return false;
+    }
 private:
-    std::list<sf::Sprite> m_body;
-    std::list<sf::Sprite>::iterator m_head;
-    std::list<sf::Sprite>::iterator m_tail;
-    
+    std::vector<sf::Sprite> body;
 };
