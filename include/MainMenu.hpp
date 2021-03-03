@@ -26,4 +26,10 @@ private:
     sf::Text m_gameTitle;
     sf::Text m_playButton;
     sf::Text m_exitButton;
+    sf::Text* m_currentButton;
+    bool m_btnPressed = false;
+
+    bool isEqual(sf::Text a, sf::Text b){
+        return a.getString() == b.getString() && a.getCharacterSize() == b.getCharacterSize();
+    }
 };

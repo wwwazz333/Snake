@@ -3,7 +3,7 @@
 
 Game::Game(): m_context(std::make_shared<Context>())
 {
-    m_context->m_window->create(sf::VideoMode(640, 360), "SFML works!", sf::Style::Close);
+    m_context->m_window->create(sf::VideoMode(640, 352), "SFML works!", sf::Style::Close);
     // TODO
     m_context->m_states->add(std::make_unique<MainMenu>(m_context));
 }
